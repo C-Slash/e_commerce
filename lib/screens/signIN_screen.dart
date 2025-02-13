@@ -1,3 +1,4 @@
+import 'package:e_commerce/screens/forgot_password_screen.dart';
 import 'package:e_commerce/screens/signUp_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -29,8 +30,7 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
               SizedBox(height: 10),
               Text(
-                "Sign in and find comfort, style, and \nperformance in every step.",
-                textAlign: TextAlign.center,
+                "Sign in and find comfort, style, and\nperformance in every step.",
                 style: TextStyle(fontSize: 14, color: Colors.grey),
               ),
               SizedBox(height: 30),
@@ -110,6 +110,11 @@ class _SignInScreenState extends State<SignInScreen> {
                   TextButton(
                     onPressed: () {
                       // Forgot password logic
+                      Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ForgotPasswordScreen()),
+                          );
                     },
                     child: Text(
                       "Forgot Your Password?",
@@ -142,7 +147,6 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
               SizedBox(height: 15),
 
-              // OR Divider
               Row(
                 children: [
                   Expanded(child: Divider()),

@@ -29,7 +29,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(height: 10),
               Text(
                 "Sign up and find comfort, style, and \nperformance in every step.",
-                textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 14, color: Colors.grey),
               ),
               SizedBox(height: 30),
