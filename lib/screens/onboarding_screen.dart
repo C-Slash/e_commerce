@@ -13,140 +13,142 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  PageController nextPage = new PageController();
+  PageController nextPage = PageController();
   int pageNumber = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(top: 100.0),
-        child: PageView(
-          onPageChanged: (value) {
-            setState(() {
-              pageNumber = value;
-            });
-          },
-          controller: nextPage,
-          children: [
-            Column(
+      body: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 100.0),
+            child: PageView(
+              onPageChanged: (value) {
+                setState(() {
+                  pageNumber = value;
+                });
+              },
+              controller: nextPage,
               children: [
-                OnboardingTextWidget(
-                    text1: "Welcome To The World Of Easy Shopping",
-                    text2:
-                        "You Can Explore Thousands Of Products Easily\nAnd Quickly; We Are Here To Make Your Shopping Experience Enjoyable And Smooth.",
-                    img: "images/shopping.svg"),
-                SizedBox(
-                  height: 10,
+                onboardingPage(
+                  "Welcome To The World Of Easy Shopping",
+                  "You Can Explore Thousands Of Products Easily\nAnd Quickly; We Are Here To Make Your Shopping Experience Enjoyable And Smooth.",
+                  "images/shopping.svg",
+                  nextPage,
+                  1,
                 ),
-                DotWidget(
-                  number: pageNumber,
+                onboardingPage(
+                  "Exclusive offers tailored for you",
+                  "Get exclusive deals and discounts that suit your taste. Enjoy a personalized shopping experience that meets all your needs.",
+                  "images/bags.svg",
+                  nextPage,
+                  2,
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                NextCustomContainer(
-                  page: nextPage,
-                  index: 1,
-                )
+                lastOnboardingPage(),
               ],
             ),
-            Column(
-              children: [
-                OnboardingTextWidget(
-                    text1: "Exclusive offers tailored for you",
-                    text2:
-                        "Get exclusive deals and discounts that suit your taste. Enjoy a personalized shopping experience that meets all your needs.",
-                    img: "images/bags.svg"),
-                SizedBox(
-                  height: 40,
-                ),
-                DotWidget(
-                  number: pageNumber,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                NextCustomContainer(
-                  page: nextPage,
-                  index: 2,
-                )
-              ],
-            ),
-            Column(
-              children: [
-                OnboardingTextWidget(
-                    text1: "Secure and fast payment with a single touch",
-                    text2:
-                        "Enjoy a smooth and secure payment experience with various payment options. Shop with confidence and pay effortlessly.",
-                    img: "images/amico.svg"),
-                SizedBox(
-                  height: 25,
-                ),
-                DotWidget(
-                  number: pageNumber,
-                ),
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: Column(
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SignUpScreen()),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          minimumSize: Size(double.infinity, 50),
-                        ),
-                        child: Text(
-                          "Sign up",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
+          ),
+
+          // Skip Button with Double Arrow Icon
+          if (pageNumber < 2)
+            Positioned(
+              top: 50,
+              right: 20,
+              child: TextButton(
+                onPressed: () {
+                  nextPage.jumpToPage(2);
+                },
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      "SKIP",
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
                       ),
-                      SizedBox(height: 10),
-                      OutlinedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SignInScreen()),
-                          );
-                        },
-                        style: OutlinedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          side: BorderSide(color: Colors.blue),
-                          minimumSize: Size(double.infinity, 50), // Full width
-                        ),
-                        child: Text(
-                          "Sign in",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                    SizedBox(width: 5),
+                    Icon(
+                      Icons.keyboard_double_arrow_right,
+                      color: Colors.grey,
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ],
-        ),
+        ],
       ),
+    );
+  }
+
+  Widget onboardingPage(
+      String title, String subtitle, String img, PageController controller, int index) {
+    return Column(
+      children: [
+        OnboardingTextWidget(text1: title, text2: subtitle, img: img),
+        SizedBox(height: 10),
+        DotWidget(number: pageNumber),
+        SizedBox(height: 10),
+        NextCustomContainer(page: controller, index: index),
+      ],
+    );
+  }
+
+  Widget lastOnboardingPage() {
+    return Column(
+      children: [
+        OnboardingTextWidget(
+          text1: "Secure and fast payment with a single touch",
+          text2: "Enjoy a smooth and secure payment experience with various payment options. Shop with confidence and pay effortlessly.",
+          img: "images/amico.svg",
+        ),
+        SizedBox(height: 25),
+        DotWidget(number: pageNumber),
+        SizedBox(height: 10),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Column(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpScreen()));
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  minimumSize: Size(double.infinity, 50),
+                ),
+                child: Text(
+                  "Sign up",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                ),
+              ),
+              SizedBox(height: 10),
+              OutlinedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SignInScreen()));
+                },
+                style: OutlinedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  side: BorderSide(color: Colors.blue),
+                  minimumSize: Size(double.infinity, 50),
+                ),
+                child: Text(
+                  "Sign in",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
