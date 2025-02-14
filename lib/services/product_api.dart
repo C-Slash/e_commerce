@@ -8,8 +8,12 @@ class ProductApi {
 
   Future<List<ProductItem>> getProducts() async {
     try {
-      Response response = await dio.get('https://orientonline.info/api/products');
-      List<ProductItem> products = (response.data as List).map((item) => ProductItem.fromJson(item)).toList();
+      Response response =
+          await dio.get('https://orientonline.info/api/products');
+
+      List<dynamic> productList = response.data["products"];
+      List<ProductItem> products = productList.map((item) => ProductItem.fromJson(item)).toList();
+
       return products;
     } catch (e) {
       log(e.toString());

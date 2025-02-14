@@ -1,4 +1,5 @@
 import 'package:e_commerce/screens/forgot_password_screen.dart';
+import 'package:e_commerce/screens/home_screen.dart';
 import 'package:e_commerce/screens/signUp_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -47,11 +48,14 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.grey), // Gray border when not focused
+                    borderSide: BorderSide(
+                        color: Colors.grey), // Gray border when not focused
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.blue, width: 2), // Blue border when focused
+                    borderSide: BorderSide(
+                        color: Colors.blue,
+                        width: 2), // Blue border when focused
                   ),
                 ),
               ),
@@ -67,7 +71,9 @@ class _SignInScreenState extends State<SignInScreen> {
                   prefixIcon: Icon(Icons.lock_outline),
                   suffixIcon: IconButton(
                     icon: Icon(
-                      isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                      isPasswordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off,
                     ),
                     onPressed: () {
                       setState(() {
@@ -80,17 +86,19 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.grey), // Gray border when not focused
+                    borderSide: BorderSide(
+                        color: Colors.grey), // Gray border when not focused
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.blue, width: 2), // Blue border when focused
+                    borderSide: BorderSide(
+                        color: Colors.blue,
+                        width: 2), // Blue border when focused
                   ),
                 ),
               ),
               SizedBox(height: 10),
 
-              // Remember Me & Forgot Password
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -98,6 +106,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     children: [
                       Checkbox(
                         value: rememberMe,
+                        activeColor: Colors.blue,
                         onChanged: (value) {
                           setState(() {
                             rememberMe = value!;
@@ -109,12 +118,11 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   TextButton(
                     onPressed: () {
-                      // Forgot password logic
                       Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ForgotPasswordScreen()),
-                          );
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ForgotPasswordScreen()),
+                      );
                     },
                     child: Text(
                       "Forgot Your Password?",
@@ -130,7 +138,10 @@ class _SignInScreenState extends State<SignInScreen> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Sign-in logic
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
@@ -163,13 +174,23 @@ class _SignInScreenState extends State<SignInScreen> {
               SocialLoginButton(
                 icon: "images/google.png",
                 text: "Continue with Google",
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                    );
+                },
               ),
               SizedBox(height: 10),
               SocialLoginButton(
                 icon: "images/Facebook.png",
                 text: "Continue with Facebook",
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                    );
+                },
               ),
 
               SizedBox(height: 20),
@@ -180,10 +201,9 @@ class _SignInScreenState extends State<SignInScreen> {
                   onTap: () {
                     // Navigate to Sign Up Screen
                     Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SignUpScreen()),
-                          );
+                      context,
+                      MaterialPageRoute(builder: (context) => SignUpScreen()),
+                    );
                   },
                   child: RichText(
                     text: TextSpan(
@@ -192,7 +212,8 @@ class _SignInScreenState extends State<SignInScreen> {
                       children: [
                         TextSpan(
                           text: "Sign up",
-                          style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              color: Colors.blue, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -240,7 +261,10 @@ class SocialLoginButton extends StatelessWidget {
             SizedBox(width: 10),
             Text(
               text,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black), // Black text
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black), // Black text
             ),
           ],
         ),

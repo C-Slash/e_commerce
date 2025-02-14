@@ -1,3 +1,4 @@
+import 'package:e_commerce/screens/otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -12,9 +13,16 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("Forgot Password"),
+        title: Text(
+          "Forgot Password",
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        iconTheme: IconThemeData(color: Colors.black),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -88,17 +96,25 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             ),
             Spacer(),
             SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: selectedOption == null ? null : () {},
-                child: Text("Continue", style: TextStyle(color: Colors.white)),
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 15),
-                  textStyle: TextStyle(fontSize: 18),
-                  backgroundColor: Colors.blue,
-                ),
-              ),
-            )
+  width: double.infinity,
+  child: ElevatedButton(
+    onPressed: selectedOption == null
+        ? null
+        : () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => OtpScreen()),
+            );
+          },
+    child: Text("Continue", style: TextStyle(color: Colors.white)),
+    style: ElevatedButton.styleFrom(
+      padding: EdgeInsets.symmetric(vertical: 15),
+      textStyle: TextStyle(fontSize: 18),
+      backgroundColor: Colors.blue,
+    ),
+  ),
+)
+
           ],
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:e_commerce/screens/home_screen.dart';
 import 'package:e_commerce/screens/signIN_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -115,7 +116,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Sign-up logic
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
@@ -149,13 +153,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SocialLoginButton(
                 icon: "images/google.png",
                 text: "Continue with Google",
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                    );
+                },
               ),
               SizedBox(height: 10),
               SocialLoginButton(
                 icon: "images/Facebook.png",
                 text: "Continue with Facebook",
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                    );
+                },
               ),
 
               SizedBox(height: 20),

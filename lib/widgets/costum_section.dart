@@ -63,8 +63,9 @@ class _CustomSectionState extends State<CustomSection> {
                       padding: const EdgeInsets.symmetric(horizontal: 5),
                       child: CustomProductCard(
                         name: items[index].name ?? 'No Title',
-                        price: '${items[index].price} \$',
-                        image: items[index].imagePath ?? '/images/clothes.png',
+                        price: '${items[index].price}',
+                        image: items[index].imagePath ?? '/images/clothes.png', 
+                        description: items[index].description ?? "Details aren't available",
                       ),
                     ),
                   ),
