@@ -21,7 +21,6 @@ class CustomProductCard extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: () {
-          // عند الضغط على المنتج يتم الانتقال إلى صفحة التفاصيل مع إرسال البيانات
           Navigator.push(
             context,
             MaterialPageRoute(
