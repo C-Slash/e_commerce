@@ -13,42 +13,47 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 2), () {
-      Navigator.pushReplacement( 
+    Future.delayed(const Duration(seconds: 3), () {
+      Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => OnboardingScreen()));
     });
-    // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min, // Center content in the middle
+      body: Stack(
+        children: [
+          Positioned(top: 50, left: 20, child: Image.asset("images/G2.png", width: 150, height: 150)),
+          Positioned(top: 100, right: 20, child: Image.asset("images/G1.png", width: 150, height: 150)),
+          Positioned(bottom: 100, left: 30, child: Image.asset("images/G4.png", width: 150, height: 150)),
+          Positioned(bottom: 50, right: 30, child: Image.asset("images/G3.png", width: 150, height: 150)),
 
-          children: [
-            SvgPicture.asset(
-              "images/logo.svg",
-              height: 70,
-              width: 70,
+          Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SvgPicture.asset(
+                  "images/logo.svg",
+                  height: 70,
+                  width: 70,
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  "Shopréme",
+                  style: GoogleFonts.pacifico(
+                    fontSize: 38,
+                    fontWeight: FontWeight.w400,
+                    height: 47.37 / 38,
+                    color: Colors.blue,
+                  ),
+                  textAlign: TextAlign.center,
+                )
+              ],
             ),
-
-            const SizedBox(height: 10), // Add space between logo and text
-
-            Text(
-              "Shopréme",
-              style: GoogleFonts.pacifico(
-                fontSize: 38,
-                fontWeight: FontWeight.w400,
-                height: 47.37 / 38, // Line height converted
-                color: Colors.blue, // Match logo color
-              ),
-              textAlign: TextAlign.center,
-            )
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

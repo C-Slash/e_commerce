@@ -9,7 +9,9 @@ class OrderSuccessScreen extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         title: Text(
           'Check out',
@@ -30,13 +32,13 @@ class OrderSuccessScreen extends StatelessWidget {
             SizedBox(height: 20),
             Text(
               'Your Order Placed Successfully',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 10),
             Text(
               'Your Order will be Delivered Between 3 - 5 Days',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
+              style: TextStyle(fontSize: 14, color: Colors.black),
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 30),
@@ -58,13 +60,14 @@ class OrderSuccessScreen extends StatelessWidget {
                 ),
                 child: Text(
                   "Return home",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Colors.white),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
                 ),
               ),
             ),
           ],
         ),
       ),
+      backgroundColor: Colors.white,
     );
   }
 }

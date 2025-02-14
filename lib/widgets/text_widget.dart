@@ -6,40 +6,50 @@ class CustomText extends StatelessWidget {
     required this.text,
     required this.hint,
     required this.width,
-    this.icon, 
+    this.icon,
+    this.obscureText = false,
   });
 
   final String text;
   final String hint;
   final double width;
-  final Icon? icon; 
+  final IconData? icon;
+  final bool obscureText;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: width,
-      child: TextField(
-        decoration: InputDecoration(
-          labelText: text,
-          labelStyle: TextStyle(color: Colors.grey),
-          hintText: hint,
-          prefixIcon: icon != null ? Icon(
-            icon!.icon, 
-            color: Colors.blueGrey, 
-          ) : null,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: Colors.grey),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: Colors.grey, width: 2),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          text,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: Colors.black54,
           ),
         ),
-      ),
+        SizedBox(height: 8),
+        Container(
+          width: width,
+          padding: EdgeInsets.symmetric(horizontal: 12),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.grey.shade300),
+          ),
+          child: TextField(
+            obscureText: obscureText,
+            decoration: InputDecoration(
+              hintText: hint,
+              hintStyle: TextStyle(color: Colors.black45),
+              prefixIcon: icon != null ? Icon(icon, color: Colors.blueGrey) : null,
+              border: InputBorder.none,
+            ),
+          ),
+        ),
+        SizedBox(height: 16),
+      ],
     );
   }
 }

@@ -1,9 +1,14 @@
-import 'package:e_commerce/screens/payment_method.dart';
+import 'package:e_commerce/screens/order_success.dart';
+import 'package:e_commerce/widgets/DropDown_list.dart';
 import 'package:e_commerce/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
-
-class CheckoutScreen extends StatelessWidget {
+class CheckoutScreen extends StatefulWidget {
+  @override
+  State<CheckoutScreen> createState() => _CheckoutScreenState();
+}
+  String selectedCountry = 'Egypt';
+class _CheckoutScreenState extends State<CheckoutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,12 +17,14 @@ class CheckoutScreen extends StatelessWidget {
         elevation: 1,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         title: Text(
           'Check out',
           style: TextStyle(
-              color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+            color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
       ),
@@ -35,7 +42,13 @@ class CheckoutScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
-                  boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)],
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12.withOpacity(0.1),
+                      blurRadius: 4,
+                      offset: Offset(0, 2),
+                    )
+                  ],
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,8 +62,7 @@ class CheckoutScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 5),
-
-                      Row(
+                    Row(
                       children: [
                         Icon(Icons.phone, color: Colors.blue),
                         SizedBox(width: 5),
@@ -58,7 +70,6 @@ class CheckoutScreen extends StatelessWidget {
                             style: TextStyle(fontWeight: FontWeight.bold))
                       ],
                     ),
-
                     Row(
                       children: [
                         Icon(Icons.location_on, color: Colors.blue),
@@ -67,8 +78,6 @@ class CheckoutScreen extends StatelessWidget {
                             style: TextStyle(fontWeight: FontWeight.bold))
                       ],
                     ),
-
-                   
                   ],
                 ),
               ),
@@ -80,14 +89,16 @@ class CheckoutScreen extends StatelessWidget {
                 text: 'Full Name',
                 hint: 'Enter your full name',
                 width: 400,
-                icon: Icon(Icons.person),
+                icon: Icons.person,
+                obscureText: false,
               ),
               SizedBox(height: 10),
               CustomText(
                 text: 'Email',
                 hint: 'email@email.com',
                 width: 400,
-                icon: Icon(Icons.email),
+                icon: Icons.email,
+                obscureText: false,
               ),
               SizedBox(height: 10),
               Row(
@@ -96,12 +107,14 @@ class CheckoutScreen extends StatelessWidget {
                     text: 'PIN Code',
                     hint: '412332',
                     width: 180,
+                    obscureText: false,
                   ),
                   SizedBox(width: 15),
                   CustomText(
                     text: 'State',
-                    hint: 'mashaty',
+                    hint: 'Mashaty',
                     width: 180,
+                    obscureText: false,
                   ),
                 ],
               ),
@@ -110,16 +123,18 @@ class CheckoutScreen extends StatelessWidget {
                 children: [
                   CustomText(
                     text: 'City',
-                    hint: 'angly',
+                    hint: 'Angly',
                     width: 180,
-                    icon: Icon(Icons.location_on),
+                    icon: Icons.location_on,
+                    obscureText: false,
                   ),
                   SizedBox(width: 15),
                   CustomText(
                     text: 'House',
                     hint: '451',
                     width: 180,
-                    icon: Icon(Icons.location_on),
+                    icon: Icons.location_on,
+                    obscureText: false,
                   ),
                 ],
               ),
@@ -129,36 +144,17 @@ class CheckoutScreen extends StatelessWidget {
                 style: TextStyle(color: Colors.grey, fontSize: 14),
               ),
               SizedBox(height: 8),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                decoration: BoxDecoration(
-                  color: Color(0xFFF7FAFC),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                    value: "Egypt",
-                    icon: Icon(Icons.keyboard_arrow_down, color: Colors.grey),
-                    isExpanded: true,
-                    style: TextStyle(color: Colors.grey, fontSize: 16),
-                    items: ["Egypt", "USA", "UK", "Canada", "Germany"]
-                        .map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Row(
-                          children: [
-                            Icon(Icons.location_on, color: Colors.blueGrey),
-                            SizedBox(width: 8),
-                            Text(value),
-                          ],
-                        ),
-                      );
-                    }).toList(),
-                    onChanged: (newValue) {},
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
+              DropdownList(
+              label: 'Country',
+              icon: Icons.location_on,
+              selectedValue: selectedCountry,
+              onChanged: (String? newValue) {
+                setState(() {
+                  selectedCountry = newValue!;
+                });
+              },
+              items: ['Egypt', 'USA', 'Canada', 'UK'],
+            ),
               SizedBox(
                 width: double.infinity,
                 height: 50,
@@ -166,7 +162,8 @@ class CheckoutScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => PaymentScreen()),
+                      MaterialPageRoute(
+                          builder: (context) => OrderSuccessScreen()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -177,8 +174,11 @@ class CheckoutScreen extends StatelessWidget {
                   ),
                   child: Text(
                     "Confirm Process",
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Colors.white),
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
